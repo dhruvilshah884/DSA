@@ -1,4 +1,5 @@
-// string
+// ****************String***********************
+
 
 // let name = "John Doe";
 // let name1 = 'John Doe';
