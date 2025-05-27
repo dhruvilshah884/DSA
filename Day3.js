@@ -369,82 +369,81 @@ class CircularLinkedList {
     this.length = 0;
   }
   append(value) {
-  const newNode = new Node(value);
+    const newNode = new Node(value);
 
-  if (!this.head) {
-    this.head = newNode;
-    this.tail = newNode;
-    newNode.next = this.head; // circular link
-  } else {
-    this.tail.next = newNode;
-    this.tail = newNode;
-    this.tail.next = this.head; // maintain circle
-  }
-
-  this.length++;
-}
-
-prepend(value) {
-  const newNode = new Node(value);
-
-  if (!this.head) {
-    this.head = newNode;
-    this.tail = newNode;
-    newNode.next = this.head;
-  } else {
-    newNode.next = this.head;
-    this.head = newNode;
-    this.tail.next = this.head; // update tail to point to new head
-  }
-
-  this.length++;
-}
-delete(value) {
-  if (!this.head) return;
-
-  let current = this.head;
-  let prev = this.tail;
-  let found = false;
-
-  for (let i = 0; i < this.length; i++) {
-    if (current.value === value) {
-      found = true;
-      if (current === this.head) {
-        this.head = this.head.next;
-        this.tail.next = this.head;
-      } else {
-        prev.next = current.next;
-        if (current === this.tail) {
-          this.tail = prev;
-        }
-      }
-      this.length--;
-      break;
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+      newNode.next = this.head;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+      this.tail.next = this.head;
     }
 
-    prev = current;
-    current = current.next;
+    this.length++;
   }
 
-  if (!found) console.log("Value not found.");
-}
-    print() {
-  if (!this.head) return console.log("List is empty");
+  prepend(value) {
+    const newNode = new Node(value);
 
-  let result = "";
-  let current = this.head;
-  let count = 0;
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+      newNode.next = this.head;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+      this.tail.next = this.head;
+    }
 
-  while (count < this.length) {
-    result += current.value + " -> ";
-    current = current.next;
-    count++;
+    this.length++;
   }
+  delete(value) {
+    if (!this.head) return;
 
-  result += "(back to head)";
-  console.log(result);
-}
+    let current = this.head;
+    let prev = this.tail;
+    let found = false;
 
+    for (let i = 0; i < this.length; i++) {
+      if (current.value === value) {
+        found = true;
+        if (current === this.head) {
+          this.head = this.head.next;
+          this.tail.next = this.head;
+        } else {
+          prev.next = current.next;
+          if (current === this.tail) {
+            this.tail = prev;
+          }
+        }
+        this.length--;
+        break;
+      }
+
+      prev = current;
+      current = current.next;
+    }
+
+    if (!found) console.log("Value not found.");
+  }
+  print() {
+    if (!this.head) return console.log("List is empty");
+
+    let result = "";
+    let current = this.head;
+    let count = 0;
+
+    while (count < this.length) {
+      result += current.value + " -> ";
+      current = current.next;
+      count++;
+    }
+
+    result += "(back to head)";
+    console.log(result);
+  }
 }
 const cll = new CircularLinkedList();
 cll.append(10);
@@ -452,4 +451,4 @@ cll.append(20);
 cll.append(30);
 cll.prepend(5);
 cll.delete(20);
-cll.print(); // 5 -> 10 -> 30 -> (back to head)
+cll.print();
