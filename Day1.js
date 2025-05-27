@@ -1,3 +1,34 @@
+// tc and sc 
+// time complexity is the amount of time taken by an algorithm to run, as a function of the length of the input.
+// space complexity is the amount of memory taken by an algorithm to run, as a function of the length of the input.
+
+// 1. O(1) - Constant Time Complexity
+// 2. O(log n) - Logarithmic Time Complexity    
+// 3. O(n) - Linear Time Complexity
+// 4. O(n log n) - Linearithmic Time Complexity
+// 5. O(n^2) - Quadratic Time Complexity
+// 6. O(n^3) - Cubic Time Complexity
+// 7. O(2^n) - Exponential Time Complexity
+// 8. O(n!) - Factorial Time Complexity
+
+// 1. O(1) - Constant Time Complexity
+// example - finding the first element of an array
+// 2. O(log n) - Logarithmic Time Complexity
+// example - binary search
+// (3) O(n) - Linear Time Complexity
+// example - finding the sum of all elements in an array
+// (4)  O(n log n) - Linearithmic Time Complexity
+// example - merge sort
+// (5) O(n^2) - Quadratic Time Complexity
+// example - bubble sort
+// (6) O(n^3) - Cubic Time Complexity
+// example - matrix multiplication
+// (7) O(2^n) - Exponential Time Complexity
+// example - fibonacci series
+// (8) O(n!) - Factorial Time Complexity
+// example - permutation
+
+
 // ****************Array***********************
 // 1d array and 2d array 
 
@@ -611,4 +642,5 @@
 //     }
 // }
 // console.log(b)
+
 

@@ -266,6 +266,230 @@ class CircularQueue {
   isFull(){
     return (this.rear + 1) % this.size === this.front
   }
+}
+let circularQueue = new CircularQueue(3);
+circularQueue.enqueue(1);
+circularQueue.enqueue(2);
 
+circularQueue.enqueue(3);
+console.log(circularQueue.Rear());
+circularQueue.dequeue()
+
+
+// Priority queue 
+
+class PriorityQueue{
+  constructor(){
+    this.items = []
+  }
+  enqueue(element , priority){
+    const qElement = {element , priority}
+    let added = false
+
+    for(let i =0;i<this.items.length;i++){
+      if(qElement.priority < this.items[i].priority){
+        console.log(this.items[i].priority , "priority")
+        console.log(qElement.priority , "qElement")
+        this.items.splice(i , 0 , qElement);
+        added = true
+        break;
+      }
+    }
+    if(!added){
+      this.items.push(qElement)
+    }
+  }
+  dequeue(){
+    if(this.isEmpty()) return "Queue is empty"
+    return this.items.shift()
+  }
+  front(){
+    if(this.isEmpty()) return "Queue is empty"
+    return this.items[0]
+  }
+  isEmpty(){
+    return this.items.length === 0
+  }
+  size(){
+    return this.items.length
+  }
+  print(){
+    for(const item of this.items){
+      console.log(`${item.element} - ${item.priority}`)
+    }
+  }
 
 }
+const priorityQueue = new PriorityQueue();
+priorityQueue.enqueue("John", 2);
+priorityQueue.enqueue("Doe", 1);
+priorityQueue.enqueue("Jane", 3);
+priorityQueue.print();
+
+// add front , addrear , removeFront , removeRear , peekFront , peekRear , isEmpty , size , print
+class Dequeue{
+  constructor(){
+    this.items = []
+  }
+
+  addFront(item){
+    this.items.unshift(item)
+  }
+  addRear(item){
+    this.items.push(item)
+  }
+  removeFront(){
+    if(this.isEmpty()) return "Dequeue is empty"
+    return this.items.shift()
+  }
+  removeRear(){
+    if(this.isEmpty()) return "Dequeue is empty"
+    return this.items.pop()
+  }
+  peekFront(){
+    if(this.isEmpty()) return "Dequeue is empty"
+    return this.items[0]
+  }
+  peekRear(){
+    if(this.isEmpty()) return "Dequeue is empty"
+    return this.items[this.items.length - 1]
+  }
+  isEmpty(){
+    return this.items.length === 0
+  }
+  size(){
+    return this.items.length
+  }
+  print(){
+    console.log(this.items.join(" "))
+  }
+}
+
+
+
+// // infix to prefix 
+// infix = (A + B)
+// prefix = +AB
+
+const precedence = {
+  '+': 1,
+  '-': 1,
+  '*': 2,
+  '/': 2,
+  '^': 3,
+}
+
+function infixToPrefix(infix){
+
+const precedence = {
+  '+': 1,
+  '-': 1,
+  '*': 2,
+  '/': 2,
+  '^': 3,
+}
+const isOperator = (c)=>['+', '-', '*', '/', '^'].includes(c)
+infix = infix.split('').reverse().map((c)=>{
+  if(c === '(') return ')'
+  if(c === ')') return '('
+  return c
+}).join('')
+
+const stack = []
+let output =""
+
+for(let i=0;i<infix.length;i++ ){
+  const c = infix[i]
+  if(/[a-zA-Z0-9]/.test(c)){
+    output += c
+  }else if(c === "("){
+    stack.push(c)
+  }else if(c === ")"){
+    while(stack.length && stack[stack.length -1 ] !== "("){
+      output += stack.pop()
+    }
+    stack.pop()
+  }else if(isOperator(c)){
+    while(stack.length && precedence[c] < precedence[stack[stack.length -1]]){
+      output += stack.pop()
+    }
+    stack.push(c)
+  }
+}
+while(stack.length){
+  output += stack.pop()
+}
+return output.split('').reverse().join('')
+}
+console.log(infixToPrefix("(A-B/C)*(A/K-L)"));
+
+// Implement Stack Using Queues
+
+class stackUsinfQueue{
+  constructor(){
+    this.q1 = []
+    this.q2 = []
+  }
+
+  push(x){
+    this.q2.push(x)
+    while(this.q1.length){
+      this.q2.push(this.q1.shift())
+    }
+    [this.q1 , this.q2] = [this.q2 , this.q1]
+  }
+  pop(){
+    return this.q1.shift()
+  }
+  top(){
+    return this.q1[0]
+  }
+  empty(){
+    return this.q1.length === 0
+  }
+}
+const stack = new stackUsinfQueue()
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log(stack.pop());
+console.log(stack.top());
+
+
+// Implement Queue Using Stacks
+
+class QueueUsingStack{
+  constructor(){
+    this.s1 = []
+    this.s2 = []
+  }
+  enqueue(x){
+    this.s1.push(x)
+  }
+  dequeue(){
+    if(this.s2.length === 0){
+      while(this.s1.length > 0){
+        this.s2.push(this.s1.pop())
+      }
+    }
+    if(this.s2.length === 0) return null
+    return this.s2.pop()
+  }
+  front(){
+    if(this.s2.length === 0){
+      while(this.s1.length > 0){
+        this.s2.push(this.s1.pop())
+      }
+    }
+    return this.s2[this.s2.length - 1]
+  }
+  isEmpty(){
+    return this.s1.length === 0 && this.s2.length === 0
+  }
+}
+let q = new QueueUsingStack();
+q.enqueue(10);
+q.enqueue(20);
+q.enqueue(30);
+console.log(q.dequeue()); // 10
+console.log(q.front()); 
